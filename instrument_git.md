@@ -30,7 +30,7 @@
     Date:   Wed May 3 16:25:41 2017 -0700
 функция потом была удалена
 
-####COMMANDS
+#### COMMANDS
 1. git log aefea -n 1
 ***
 2. git log -n 1 85024d3
