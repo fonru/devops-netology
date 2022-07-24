@@ -1,4 +1,4 @@
-1. commit aefead2207ef7e2aa5dc81a34aedf0cad4c32545
+1. commit aefead2207ef7e2aa5dc81a34aedf0cad4c32545 "Update CHANGELOG.md"
 ***
 2. tag: v0.12.23
 ***
@@ -29,3 +29,20 @@
 7.  Author: Martin Atkins <mart@degeneration.co.uk>
     Date:   Wed May 3 16:25:41 2017 -0700
 функция потом была удалена
+
+
+****COMMANDS
+1. git log aefea -n 1
+***
+2. git log -n 1 85024d3
+***
+3. git rev-parse b8d720^@
+***
+4. git log --oneline v0.12.23...v0.12.24
+***
+5. нашел файл где функция описана git grep 'func providerSource(,а затем git log -L :providerSource:provider_source.go и по логам нашел, в каком коммите была впервые создана функция
+***
+6. также сперва грепнул, где описана функция, а затем git log  -L :'func globalPluginDirs(':plugins.go
+***
+7. сперва нашел коммит git log -SsynchronizedWriters а затем самый старый коммит проверил git show 5ac311e2a91e381e2f52234668b49ba670aa0fe5
+
