@@ -1,5 +1,5 @@
 5. Ресурсы виртуально машины показаны на рисунке
-![resource](/home/fon/Desktop/Netology/work_in_terminal/res.png)
+![resource](/res.png)
 
 ---
 
