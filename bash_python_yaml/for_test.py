@@ -1,12 +1,13 @@
-import os
+import socket
 
-bash_command = ["cd ~/PycharmProjects/devops-netology", "git status"]
-result_os = os.popen(' && '.join(bash_command)).read()
-is_change = False
-for result in result_os.split('\n'):
-    if result.find('modified') != -1:
-        prepare_result = result.replace('\tmodified:   ', '')
-        for file in [prepare_result]:
-            # print(file)
-            full_path = os.popen(f"cd ~/PycharmProjects/devops-netology && readlink -e {file}").read()
-            print(file, full_path)
+url_list_cache = {'drive.google.com': '', 'mail.google.com': '', 'google.com': ''}
+
+
+while True:
+    for i in url_list_cache.items():
+        ip = socket.gethostbyname(i[0])
+        if i[1] != ip:
+            print(f'[ERROR] {i[0]} IP mismatch: <старый {i[1]}> <Новый {ip}>')
+            url_list_cache.update({i[0]: ip})
+        else:
+            print(f'{i[0]} - {i[1]}')
