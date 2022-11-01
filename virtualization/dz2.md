@@ -44,4 +44,4 @@ ansible 2.10.8
 vagrant@server1:~$ sudo docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
-![img.png](img.png)
+![img_1.png](img_1.png)
