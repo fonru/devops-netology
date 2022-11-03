@@ -151,3 +151,7 @@ total 4.0K
 -rw-r--r-- 1 root root 20 Nov  3 11:50 host_file
 blablalblablablabal
 ```
+
+### Задача 4
+
+https://hub.docker.com/repository/docker/fonru/netology
