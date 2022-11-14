@@ -15,4 +15,4 @@
 ### Задача 4
 Создал еще машинку и подключил через node_exporter
 ![img_6.png](img_6.png)
-![img_7.png](img_7.png)
+![img_7.png](img_7.png) 
