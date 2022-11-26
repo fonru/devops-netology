@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e65513a-ccbb-4b8f-a996-8181e3175c1c" name="Changes" comment="dz complete">
-      <change afterPath="$PROJECT_DIR$/virtualization/ansible/install_docker.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/virtualization/dz5.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/virtualization/img_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/virtualization/img_9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/dz3.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtualization/dz4.md" beforeDir="false" afterPath="$PROJECT_DIR$/virtualization/dz4.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
