@@ -218,10 +218,10 @@ mysql> show profiles;
 ### Задача 4
 
 Часть конфига, который был добавлен согласно ТЗ с пояснением
-``
+```
 innodb_flush_log_at_trx_commit = 0 - максимальная скорость
 innodb_file_format=Barracuda - компрессия
 innodb_log_buffer_size	= 1M - Размер буффера с незакомиченными транзакциями 1 Мб
 key_buffer_size = 4500М 
 max_binlog_size	= 100M
-``
+```
