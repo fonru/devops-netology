@@ -2,7 +2,37 @@
 
 >текст Dockerfile манифеста
 
+```dockerfile
+FROM centos:7
+
+RUN yum makecache && yum upgrade -y
+
+RUN yum install wget perl-Digest-SHA -y
+
+RUN groupadd -r elasticsearch && useradd -r -g  elasticsearch elasticsearch
+
+WORKDIR /home/elasticsearch
+
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.5.2-linux-x86_64.tar.gz
+
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.5.2-linux-x86_64.tar.gz.sha512
+
+RUN shasum -a 512 -c elasticsearch-8.5.2-linux-x86_64.tar.gz.sha512 && \
+    tar -xzf elasticsearch-8.5.2-linux-x86_64.tar.gz && \
+    mkdir /var/log/data
+
+RUN chown -R elasticsearch:elasticsearch ./elasticsearch-8.5.2/ /var/log/data
+
+RUN chmod 777 -R ./elasticsearch-8.5.2/ /var/log/data
+
+COPY elasticsearch.yml ./elasticsearch-8.5.2/config/
+```
+
 >ссылку на образ в репозитории dockerhub
+
+```url
+https://hub.docker.com/repository/docker/fonru/elastic
+```
 
 >ответ elasticsearch на запрос пути / в json виде
 
