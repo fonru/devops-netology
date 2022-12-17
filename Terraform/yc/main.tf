@@ -1,23 +1,12 @@
-terraform {
-  required_providers {
-    yandex = {
-      source = "yandex-cloud/yandex"
-    }
-  }
-  required_version = ">= 0.13"
-}
+resource "yandex_compute_instance" "instance_1" {
 
-provider "yandex" {
-  zone = "ru-central1-a"
-}
-
-
-resource "yandex_compute_instance" "vm-1" {
-  name = "ubuntu22"
+  count = local.hosts[terraform.workspace]
+  
+  name = "ubuntu-${count.index}-${terraform.workspace}"
 
   resources {
     cores  = 2
-    memory = 4
+    memory = 2
   }
 
   boot_disk {
@@ -34,7 +23,40 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
     user-data = "${file("./meta/users.txt")}"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
+
+resource "yandex_compute_instance" "instance_2" {
+  
+  for_each = local.vms_num[terraform.workspace]
+    name = "ubuntu-${each.key}-${terraform.workspace}"
+
+    resources {
+      cores = 2
+      memory = 2
+    }
+
+    boot_disk {
+      initialize_params {
+        image_id = "fd89jk9j9vifp28uprop"
+      }
+    }
+
+    network_interface {
+      subnet_id = yandex_vpc_subnet.subnet-1.id
+      nat       = true
+    }
+
+    metadata = {
+      user-data = "${file("./meta/users.txt")}"
+    }
+}
+
+
+### NETWORK ###
 
 resource "yandex_vpc_network" "network_1" {
   name = "net_1"
