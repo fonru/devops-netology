@@ -21,9 +21,9 @@ backend "s3" {
 
 provider "yandex" {
   zone = "ru-central1-a"
-  token     = "${var.yc_token}"
-  cloud_id  = "${var.yc_cloud_id}"
-  folder_id = "${var.yc_folder_id}"
+  token     = "xxxxxxxxxxxx"
+  cloud_id  = "b1gsr0kdgo2k62r0co5o"
+  folder_id = "b1gl9omrk477ufib716u"
 }
 
 

@@ -2,7 +2,7 @@ resource "yandex_compute_instance" "instance_1" {
 
   count = local.hosts[terraform.workspace]
   
-  name = "ubuntu-${count.index}-${terraform.workspace}"
+  name = "INST1_ubuntu-${count.index}-${terraform.workspace}"
 
   resources {
     cores  = 2
@@ -32,7 +32,7 @@ resource "yandex_compute_instance" "instance_1" {
 resource "yandex_compute_instance" "instance_2" {
   
   for_each = local.vms_num[terraform.workspace]
-    name = "ubuntu-${each.key}-${terraform.workspace}"
+    name = "inst2_ubuntu-${each.key}-${terraform.workspace}"
 
     resources {
       cores = 2
