@@ -27,6 +27,10 @@ commands will detect it and remind you to do so if necessary.
 Вывод консоли а также обновил репозиторий Terraform (https://github.com/fonru/devops-netology/tree/main/Terraform/yc)
 
 ```shell
+[admin@localhost yc]$ terraform workspace list
+  default
+* prod
+  stage
 [admin@localhost yc]$ terraform plan
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
