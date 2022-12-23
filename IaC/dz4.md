@@ -4,5 +4,10 @@
 
 # Задача 2
 
+https://github.com/fonru/devops-netology/blob/main/Terraform/yc/server.yaml
+https://github.com/fonru/devops-netology/blob/main/Terraform/yc/atlantis.yaml
 
 # Задача 3
+
+Попробовал сам создать модули `network` и `compute_instance`
+https://github.com/fonru/devops-netology/blob/main/Terraform/yc/main.tf
