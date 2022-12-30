@@ -15,7 +15,7 @@
 Какому регулярному выражению должно подчиняться имя?
 
 `^[a-zA-Z0-9_-] и максимальной длинной в 80 символов {1,80}
-
+[ссылка](https://github.com/hashicorp/terraform-provider-aws/blob/d9290535ae088a600ddec41fe63e899185d74b56/internal/service/sqs/queue.go#L430)
 # Задача 2
 
 Доберусь чуть позже
