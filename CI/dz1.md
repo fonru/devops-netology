@@ -219,83 +219,78 @@ Vault password:
 Decryption successful
 ```
 
->2. Зашифруйте отдельное значение PaSSw0rd для переменной some_fact паролем netology. Добавьте полученное значение в group_vars/all/exmp.yml.
+>2,3 Зашифруйте отдельное значение PaSSw0rd для переменной some_fact паролем netology. Добавьте полученное значение в group_vars/all/exmp.yml.
 
 ```sh
-fon@fons-Mac-mini 08-ansible-01-base % ansible-vault encrypt_string
+fon@fons-Mac-mini CI % ansible-vault encrypt_string 'PaSSw0rd' --name 'some_fact'                                                                                                                           
 New Vault password: 
 Confirm New Vault password: 
-Reading plaintext input from stdin. (ctrl-d to end input, twice if your content does not already have a newline)
-PaSSw0rd
 Encryption successful
-!vault |
+some_fact: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          63643262653937353638623562326466636166616465636465663262633536396561336361343266
-          3337313364623562613033396431646434626130303336300a656233643262663237666664316164
-          39376236373561343232376361343533393736353466376131323130626633363836396335646330
-          3637306564386439340a306432636262646438613364323636613435303561643434346562353263
-          3938%
+          62393764636563623832323962643830303832666238656265653734663433313233653266333034
+          6566383863346233303638303331663034646466666162360a663564613934393139663030383665
+          38336263313432623033643538343938643961346438343262646665613235356161333332646166
+          3838366632353831650a343664373836393066386239646661613839393739303266306239323637
+          3139%                                                                                                                                                                                                       
 
-
-fon@fons-Mac-mini 08-ansible-01-base % cat playbook/group_vars/all/examp.yml
+fon@fons-Mac-mini mnt-homeworks % cat /Volumes/Sklad/GitHub/mnt-homeworks/08-ansible-01-base/playbook/group_vars/all/examp.yml
 ---
   some_fact: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          63643262653937353638623562326466636166616465636465663262633536396561336361343266
-          3337313364623562613033396431646434626130303336300a656233643262663237666664316164
-          39376236373561343232376361343533393736353466376131323130626633363836396335646330
-          3637306564386439340a306432636262646438613364323636613435303561643434346562353263
-          3938%
+            $ANSIBLE_VAULT;1.1;AES256
+            62393764636563623832323962643830303832666238656265653734663433313233653266333034
+            6566383863346233303638303331663034646466666162360a663564613934393139663030383665
+            38336263313432623033643538343938643961346438343262646665613235356161333332646166
+            3838366632353831650a343664373836393066386239646661613839393739303266306239323637
+            3139% 
 
-
-fon@fons-Mac-mini 08-ansible-01-base % ansible-playbook -i playbook/inventory/prod.yml playbook/site.yml --ask-vault-password
+fon@fons-Mac-mini CI % ansible-playbook -i /Volumes/Sklad/GitHub/mnt-homeworks/08-ansible-01-base/playbook/inventory/prod.yml /Volumes/Sklad/GitHub/mnt-homeworks/08-ansible-01-base/playbook/site.yml --ask-vault-password
 Vault password: 
+[WARNING]: Found both group and host with same name: fedora
 
-PLAY [Print os facts] *******************************************************************************************************************************************************************************
+PLAY [Print os facts] ************************************************************************************************************************************************************************************************
 
-TASK [Gathering Facts] ******************************************************************************************************************************************************************************
+TASK [Gathering Facts] ***********************************************************************************************************************************************************************************************
 ok: [ubuntu]
+ok: [fedora]
 ok: [centos7]
-[WARNING]: Platform darwin on host localhost is using the discovered Python interpreter at /usr/local/bin/python3.11, but future installation of another Python interpreter could change the meaning
-of that path. See https://docs.ansible.com/ansible-core/2.14/reference_appendices/interpreter_discovery.html for more information.
+[WARNING]: Platform darwin on host localhost is using the discovered Python interpreter at /usr/local/bin/python3.11, but future installation of another Python interpreter could change the meaning of that path.
+See https://docs.ansible.com/ansible-core/2.14/reference_appendices/interpreter_discovery.html for more information.
 ok: [localhost]
 
-TASK [Print OS] *************************************************************************************************************************************************************************************
+TASK [Print OS] ******************************************************************************************************************************************************************************************************
 ok: [centos7] => {
     "msg": "CentOS"
 }
 ok: [ubuntu] => {
     "msg": "Ubuntu"
 }
+ok: [fedora] => {
+    "msg": "Fedora"
+}
 ok: [localhost] => {
     "msg": "MacOSX"
 }
 
-TASK [Print fact] ***********************************************************************************************************************************************************************************
+TASK [Print fact] ****************************************************************************************************************************************************************************************************
 ok: [centos7] => {
     "msg": "el default fact"
 }
-
-[WARNING]: 
-There was a vault format error: Vault format unhexlify error: Odd-length string
-
-The error appears to be in '/Volumes/Sklad/GitHub/mnt-homeworks/08-ansible-01-base/playbook/group_vars/all/examp.yml': line 2, column 14, but may
-be elsewhere in the file depending on the exact syntax problem.
-
-The offending line appears to be:
-
----
-  some_fact: !vault |
-             ^ here
 ok: [ubuntu] => {
     "msg": "deb default fact"
 }
-fatal: [localhost]: FAILED! => {"msg": "Vault format unhexlify error: Odd-length string\n\nThe error appears to be in '/Volumes/Sklad/GitHub/mnt-homeworks/08-ansible-01-base/playbook/group_vars/all/examp.yml': line 2, column 14, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n---\n  some_fact: !vault |\n             ^ here\n"}
+ok: [fedora] => {
+    "msg": "fedora default fact"
+}
+ok: [localhost] => {
+    "msg": "PaSSw0rd"
+}
 
-PLAY RECAP ******************************************************************************************************************************************************************************************
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
 centos7                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
-ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+fedora                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
 ```
 
 >4,5 Скрипт
