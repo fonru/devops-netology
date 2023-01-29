@@ -3,8 +3,11 @@
 >Задания 1,2,3,4 через общий плейбук clickhouse + vector .
 
 [playbook](08-ansible-02-playbook/playbook/site.yml)
+
 [invetory](08-ansible-02-playbook/playbook/inventory/prod.yml)
-[vector_vars](08-ansible-02-playbook/playbook/group_vars/clickhouse/vars.yml)
+
+[clickhouse_vars](08-ansible-02-playbook/playbook/group_vars/clickhouse/vars.yml)
+
 [vector_vars](08-ansible-02-playbook/playbook/group_vars/vector/vars.yml)
 
 ```shell
