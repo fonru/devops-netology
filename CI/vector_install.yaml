@@ -1,7 +1,0 @@
----
-- name: Ping module demo
-  hosts: all
-  become: false
-  tasks:
-    - name: Test connection
-      ansible.builtin.ping:
