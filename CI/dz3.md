@@ -1,6 +1,7 @@
 
 # Основная часть
 >1,2,3,4
+
 [playbook](08-ansible-02-playbook/playbook/site.yml)
 
 [invetory](08-ansible-02-playbook/playbook/inventory/prod.yml)
