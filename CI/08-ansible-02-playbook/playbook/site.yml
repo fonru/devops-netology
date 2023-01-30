@@ -50,3 +50,46 @@
       become: true
       ansible.builtin.apt:
         deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
+
+
+# Lighthouse install
+- name: Install Lighthouse
+  hosts: lighthouse
+  handlers:
+    - name: Restart nginx
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+  tasks:
+    - name: Install epel-release
+      become: true
+      ansible.builtin.yum:
+        name:
+          - epel-release
+    - name: Install git
+      become: true
+      ansible.builtin.yum:
+        name:
+          - git
+    - name: Install nginx
+      become: true
+      ansible.builtin.yum:
+        name:
+          - nginx
+    # - name: Firewall
+    #   become: true
+    #   ansible.builtin.shell:
+    #     cmd: firewall-cmd --permanent --zone=public --add-service=http && firewall-cmd --permanent --zone=public --add-service=https && firewall-cmd --reload
+    - name: Clean html directory
+      become: true
+      ansible.builtin.file:
+        state: absent
+        path: usr/share/nginx/html/
+    - name: Copy-lighthouse
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/VKCOM/lighthouse.git
+        version: master
+        dest: "{{ clickhouse_dir }}"
+      notify: Restart nginx
