@@ -9,7 +9,7 @@ Play по скачиванию и установки пакета clickhouse с 
 
 > name: Install vector
 
-Play загружает и устанавливает пакет vector, после чего через handler запускается сервис.
+Play загружает и устанавливает пакет vector определенной через vars версии, после чего через handler запускается сервис.
 
 > name: Install Lighthouse
 
