@@ -160,3 +160,7 @@ PLAY RECAP *********************************************************************
 clickhouse-01              : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
 vector-01                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
+
+> Задание 9
+
+[README - описание playbook](08-ansible-02-playbook/README.md)

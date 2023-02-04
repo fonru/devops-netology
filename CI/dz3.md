@@ -21,7 +21,7 @@ WARNING  Overriding detected file kind 'yaml' with 'playbook' for given position
 Passed with production profile: 0 failure(s), 0 warning(s) on 1 files.
 ```
 
->6,7,8,9,10 Запуск плейбука 
+>6,7,8,10 Запуск плейбука 
 
 ```shell
 fon@fons-Mac-mini 08-ansible-02-playbook % ansible-playbook -i playbook/inventory/prod.yml playbook/site.yml
@@ -83,3 +83,7 @@ vector-01                  : ok=2    changed=0    unreachable=0    failed=0    s
 ```
 
 ![screenshoot_lighthouse](Screenshot%202023-01-30%20at%2016.13.50.png)
+
+> Задание 9
+
+[README - описание playbook](08-ansible-02-playbook/README.md)
