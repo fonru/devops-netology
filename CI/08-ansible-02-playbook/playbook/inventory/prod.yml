@@ -7,8 +7,8 @@ clickhouse:
 vector:
   hosts:
     vector-01:
-      ansible_host: 158.160.54.121
-      ansible_user: admin
+      ansible_host: 192.168.1.83
+      ansible_user: admin1
 lighthouse:
   hosts:
     lighthouse-01:
