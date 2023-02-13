@@ -321,6 +321,15 @@ main task роли create_file
     content: "{{ default_content }}"
 ```
 
+default переменные роли create_file
+```yml
+---
+default_path: "/Volumes/Sklad/GitHub/test_file.txt"
+default_content: "my_test_content_mfonarev"
+```
+
+
+
 Далее я сделал билд коллекции и установил ее
 ```sh
 fon@fons-Mac-mini yandex_cloud_elk % ansible-galaxy collection build
