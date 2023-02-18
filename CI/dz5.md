@@ -695,15 +695,225 @@ posargs:molecule test -s tox --destroy always
 
 > 6. Запустите команду tox. Убедитесь, что всё отработало успешно.
 
-> При использовании драйвера podman при билдинге контейнеров выдает ошибку и соответственно tox сценарий не работает.
+> Тестирование прошло успешно на версии питон37 и версиях ансибл 210 3
 
-ОШИБКА
 ```shell
+[root@a1d01361be13 vector-role]# tox
+py37-ansible210 installed: ansible==2.10.7,ansible-base==2.10.17,ansible-compat==1.0.0,ansible-lint==5.1.3,arrow==1.2.3,bcrypt==4.0.1,binaryornot==0.4.4,bracex==2.3.post1,cached-property==1.5.2,Cerberus==1.3.2,certifi==2022.12.7,cffi==1.15.1,chardet==5.1.0,charset-normalizer==3.0.1,click==8.1.3,click-help-colors==0.9.1,cookiecutter==2.1.1,cryptography==39.0.1,distro==1.8.0,enrich==1.2.7,idna==3.4,importlib-metadata==6.0.0,Jinja2==3.1.2,jinja2-time==0.2.0,jmespath==1.0.1,lxml==4.9.2,markdown-it-py==2.1.0,MarkupSafe==2.1.2,mdurl==0.1.2,molecule==3.4.0,molecule-podman==1.0.1,packaging==23.0,paramiko==2.12.0,pathspec==0.11.0,pluggy==0.13.1,pycparser==2.21,Pygments==2.14.0,PyNaCl==1.5.0,python-dateutil==2.8.2,python-slugify==8.0.0,PyYAML==5.4.1,requests==2.28.2,rich==13.3.1,ruamel.yaml==0.17.21,ruamel.yaml.clib==0.2.7,selinux==0.2.1,six==1.16.0,subprocess-tee==0.3.5,tenacity==8.2.1,text-unidecode==1.3,typing_extensions==4.5.0,urllib3==1.26.14,wcmatch==8.4.1,yamllint==1.26.3,zipp==3.14.0
+py37-ansible210 run-test-pre: PYTHONHASHSEED='2697676653'
+py37-ansible210 run-test: commands[0] | molecule test -s tox
+INFO     tox scenario test matrix: destroy, create, converge, destroy
+INFO     Performing prerun...
+WARNING  Failed to locate command: [Errno 2] No such file or directory: 'git': 'git'
+INFO     Guessed /opt/vector-role as project root directory
+INFO     Using /root/.cache/ansible-lint/b984a4/roles/my_namespace.vector symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Added ANSIBLE_ROLES_PATH=~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/root/.cache/ansible-lint/b984a4/roles
+INFO     Running tox > destroy
+INFO     Sanity checks: 'podman'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item={'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True})
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+changed: [localhost] => (item={'started': 1, 'finished': 0, 'ansible_job_id': '763293198463.10323', 'results_file': '/root/.ansible_async/763293198463.10323', 'changed': True, 'failed': False, 'item': {'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Running tox > create
+
+PLAY [Create] ******************************************************************
+
+TASK [get podman executable path] **********************************************
+ok: [localhost]
+
+TASK [save path to executable as fact] *****************************************
+ok: [localhost]
+
+TASK [Log into a container registry] *******************************************
+skipping: [localhost] => (item="ubuntu_latest registry username: None specified") 
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item=Dockerfile: None specified)
+
+TASK [Create Dockerfiles from image names] *************************************
+skipping: [localhost] => (item="Dockerfile: None specified; Image: localhost/ubuntu_systemd_latest1") 
+
+TASK [Discover local Podman images] ********************************************
+ok: [localhost] => (item=ubuntu_latest)
+
 TASK [Build an Ansible compatible image] ***************************************
-FAILED - RETRYING: Build an Ansible compatible image (3 retries left).
-FAILED - RETRYING: Build an Ansible compatible image (2 retries left).
-FAILED - RETRYING: Build an Ansible compatible image (1 retries left).
-failed: [localhost] (item=centos/centos:stream8) => {"ansible_loop_var": "item", "attempts": 3, "changed": true, "cmd": ["/usr/bin/podman", "build", "-f", "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8", "-t", "molecule_local/centos/centos:stream8"], "delta": "0:00:05.381295", "end": "2023-02-10 16:48:46.844733", "item": {"ansible_index_var": "i", "ansible_loop_var": "item", "changed": false, "checksum": "9726a6138ec2cb18e6fda6649dc955dddb1cf740", "dest": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8", "diff": {"after": {"path": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8"}, "before": {"path": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8"}}, "failed": false, "gid": 0, "group": "root", "i": 0, "invocation": {"module_args": {"_diff_peek": null, "_original_basename": "Dockerfile.j2", "access_time": null, "access_time_format": "%Y%m%d%H%M.%S", "attributes": null, "dest": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8", "follow": true, "force": false, "group": null, "mode": "0600", "modification_time": null, "modification_time_format": "%Y%m%d%H%M.%S", "owner": null, "path": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8", "recurse": false, "selevel": null, "serole": null, "setype": null, "seuser": null, "src": null, "state": "file", "unsafe_writes": false}}, "item": {"command": "/sbin/init", "image": "centos/centos:stream8", "name": "c8", "privileged": true}, "mode": "0600", "owner": "root", "path": "/root/.cache/molecule/vector-role/tox/Dockerfile_centos_centos_stream8", "size": 1050, "state": "file", "uid": 0}, "msg": "non-zero return code", "rc": 1, "start": "2023-02-10 16:48:41.463438", "stderr": "error running container: error from /usr/bin/crun creating container for [/bin/sh -c if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi]: writing file `/sys/fs/cgroup/cgroup.subtree_control`: Operation not supported\n: exit status 1\ntime=\"2023-02-10T16:48:46Z\" level=error msg=\"did not get container create message from subprocess: read |0: i/o timeout\"\nError: error building at STEP \"RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi\": error while running runtime: exit status 1", "stderr_lines": ["error running container: error from /usr/bin/crun creating container for [/bin/sh -c if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi]: writing file `/sys/fs/cgroup/cgroup.subtree_control`: Operation not supported", ": exit status 1", "time=\"2023-02-10T16:48:46Z\" level=error msg=\"did not get container create message from subprocess: read |0: i/o timeout\"", "Error: error building at STEP \"RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi\": error while running runtime: exit status 1"], "stdout": "STEP 1/2: FROM centos/centos:stream8\nSTEP 2/2: RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi", "stdout_lines": ["STEP 1/2: FROM centos/centos:stream8", "STEP 2/2: RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python3 sudo bash ca-certificates iproute2 python3-apt aptitude && apt-get clean && rm -rf /var/lib/apt/lists/*;     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install /usr/bin/python3 /usr/bin/python3-config /usr/bin/dnf-3 sudo bash iproute && dnf clean all;     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all;     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a;     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates;     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi"]}
+skipping: [localhost] => (item=localhost/ubuntu_systemd_latest1) 
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item="ubuntu_latest command: /lib/systemd/systemd")
+
+TASK [Remove possible pre-existing containers] *********************************
+changed: [localhost]
+
+TASK [Discover local podman networks] ******************************************
+skipping: [localhost] => (item=ubuntu_latest: None specified) 
+
+TASK [Create podman network dedicated to this scenario] ************************
+skipping: [localhost]
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+changed: [localhost] => (item=ubuntu_latest)
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=8    changed=3    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+
+INFO     Running tox > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_latest]
+
+TASK [Include vector-role] *****************************************************
+
+TASK [vector-role : Download and install vector packages for UBUNTU] ***********
+[WARNING]: Updating cache and auto-installing missing dependency: python3-apt
+changed: [ubuntu_latest]
+
+TASK [vector-role : Download and install vector packages for Centos8] **********
+skipping: [ubuntu_latest]
+
+RUNNING HANDLER [vector-role : Start Vector service] ***************************
+changed: [ubuntu_latest]
+
+PLAY RECAP *********************************************************************
+ubuntu_latest              : ok=3    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running tox > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item={'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True})
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item={'started': 1, 'finished': 0, 'ansible_job_id': '8698570112.11645', 'results_file': '/root/.ansible_async/8698570112.11645', 'changed': True, 'failed': False, 'item': {'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
+py37-ansible30 installed: ansible==3.0.0,ansible-base==2.10.17,ansible-compat==1.0.0,ansible-lint==5.1.3,arrow==1.2.3,bcrypt==4.0.1,binaryornot==0.4.4,bracex==2.3.post1,cached-property==1.5.2,Cerberus==1.3.2,certifi==2022.12.7,cffi==1.15.1,chardet==5.1.0,charset-normalizer==3.0.1,click==8.1.3,click-help-colors==0.9.1,cookiecutter==2.1.1,cryptography==39.0.1,distro==1.8.0,enrich==1.2.7,idna==3.4,importlib-metadata==6.0.0,Jinja2==3.1.2,jinja2-time==0.2.0,jmespath==1.0.1,lxml==4.9.2,markdown-it-py==2.1.0,MarkupSafe==2.1.2,mdurl==0.1.2,molecule==3.4.0,molecule-podman==1.0.1,packaging==23.0,paramiko==2.12.0,pathspec==0.11.0,pluggy==0.13.1,pycparser==2.21,Pygments==2.14.0,PyNaCl==1.5.0,python-dateutil==2.8.2,python-slugify==8.0.0,PyYAML==5.4.1,requests==2.28.2,rich==13.3.1,ruamel.yaml==0.17.21,ruamel.yaml.clib==0.2.7,selinux==0.2.1,six==1.16.0,subprocess-tee==0.3.5,tenacity==8.2.1,text-unidecode==1.3,typing_extensions==4.5.0,urllib3==1.26.14,wcmatch==8.4.1,yamllint==1.26.3,zipp==3.14.0
+py37-ansible30 run-test-pre: PYTHONHASHSEED='2697676653'
+py37-ansible30 run-test: commands[0] | molecule test -s tox
+INFO     tox scenario test matrix: destroy, create, converge, destroy
+INFO     Performing prerun...
+WARNING  Failed to locate command: [Errno 2] No such file or directory: 'git': 'git'
+INFO     Guessed /opt/vector-role as project root directory
+INFO     Using /root/.cache/ansible-lint/b984a4/roles/my_namespace.vector symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Added ANSIBLE_ROLES_PATH=~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/root/.cache/ansible-lint/b984a4/roles
+INFO     Running tox > destroy
+INFO     Sanity checks: 'podman'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item={'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True})
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+changed: [localhost] => (item={'started': 1, 'finished': 0, 'ansible_job_id': '124350397529.11785', 'results_file': '/root/.ansible_async/124350397529.11785', 'changed': True, 'failed': False, 'item': {'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Running tox > create
+
+PLAY [Create] ******************************************************************
+
+TASK [get podman executable path] **********************************************
+ok: [localhost]
+
+TASK [save path to executable as fact] *****************************************
+ok: [localhost]
+
+TASK [Log into a container registry] *******************************************
+skipping: [localhost] => (item="ubuntu_latest registry username: None specified") 
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item=Dockerfile: None specified)
+
+TASK [Create Dockerfiles from image names] *************************************
+skipping: [localhost] => (item="Dockerfile: None specified; Image: localhost/ubuntu_systemd_latest1") 
+
+TASK [Discover local Podman images] ********************************************
+ok: [localhost] => (item=ubuntu_latest)
+
+TASK [Build an Ansible compatible image] ***************************************
+skipping: [localhost] => (item=localhost/ubuntu_systemd_latest1) 
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item="ubuntu_latest command: /lib/systemd/systemd")
+
+TASK [Remove possible pre-existing containers] *********************************
+changed: [localhost]
+
+TASK [Discover local podman networks] ******************************************
+skipping: [localhost] => (item=ubuntu_latest: None specified) 
+
+TASK [Create podman network dedicated to this scenario] ************************
+skipping: [localhost]
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=ubuntu_latest)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+changed: [localhost] => (item=ubuntu_latest)
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=8    changed=3    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+
+INFO     Running tox > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ubuntu_latest]
+
+TASK [Include vector-role] *****************************************************
+
+TASK [vector-role : Download and install vector packages for UBUNTU] ***********
+[WARNING]: Updating cache and auto-installing missing dependency: python3-apt
+changed: [ubuntu_latest]
+
+TASK [vector-role : Download and install vector packages for Centos8] **********
+skipping: [ubuntu_latest]
+
+RUNNING HANDLER [vector-role : Start Vector service] ***************************
+changed: [ubuntu_latest]
+
+PLAY RECAP *********************************************************************
+ubuntu_latest              : ok=3    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running tox > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item={'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True})
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item={'started': 1, 'finished': 0, 'ansible_job_id': '578849601521.13112', 'results_file': '/root/.ansible_async/578849601521.13112', 'changed': True, 'failed': False, 'item': {'command': '/lib/systemd/systemd', 'image': 'localhost/ubuntu_systemd_latest1', 'name': 'ubuntu_latest', 'pre_build_image': True, 'privileged': True}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+_______________________________________________________________________________________________________________ summary ________________________________________________________________________________________________________________
+  py37-ansible210: commands succeeded
+  py37-ansible30: commands succeeded
+
 ```
 > 7. Добавьте новый тег на коммит с рабочим сценарием в соответствии с семантическим версионированием.
 [TAG----TOX](https://github.com/fonru/ansible-vector/releases/tag/1.2.0)
