@@ -1,0 +1,36 @@
+---
+- hosts: jenkins
+  remote_user: admin
+  become: true
+  tasks:
+  - name: Wget jenkins repo
+    ansible.builtin.shell: sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+  - name: Import RPM keys
+    ansible.builtin.shell: sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+  - name: YUM upgrade
+    ansible.builtin.yum:
+      name: '*'
+      state: latest
+    
+  - name: Install packages
+    ansible.builtin.yum:
+      name:
+        - java-11-openjdk
+        - jenkins
+        - git
+      state: present
+
+  - name: Daemon reload
+    ansible.builtin.shell: sudo systemctl daemon-reload
+
+  - name: Enable service Jenkins
+    ansible.builtin.service:
+      name: jenkins
+      enabled: yes
+  
+  - name: Start service Jenkins
+    ansible.builtin.service:
+      name: jenkins
+      state: started

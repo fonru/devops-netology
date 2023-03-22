@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: admin1
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG4yd7B/BWBH5VfpAIkvvP/1He/vnUelM1ozg3mXuK5+ admin@localhost.localdomain
