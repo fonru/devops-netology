@@ -1,6 +1,0 @@
----
-jenkins:
-  hosts:
-    jenkins-master:
-      ansible_host: 158.160.34.61
-      ansible_user: admin

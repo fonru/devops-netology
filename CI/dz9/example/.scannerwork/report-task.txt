@@ -1,6 +1,0 @@
-projectKey=dz9
-serverUrl=http://158.160.37.242:9000
-serverVersion=9.1.0.47736
-dashboardUrl=http://158.160.37.242:9000/dashboard?id=dz9
-ceTaskId=AYaTQaywt0N-lZrZYhEY
-ceTaskUrl=http://158.160.37.242:9000/api/ce/task?id=AYaTQaywt0N-lZrZYhEY
