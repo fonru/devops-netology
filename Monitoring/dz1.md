@@ -31,7 +31,7 @@ OpenSource стэк Prometheus + Grafana мне кажется способен 
 
 > 5. Опишите основные плюсы и минусы pull и push систем мониторинга.
 
-- Модель Pull более проста с точки зрения мониторинга состояния живучести) Если проиложение не отправляет в модели Push никаких метрик, проблему сложнее диагностировать. Это может быть проблема на уровне сети/приложения или же вовсе приложение переехало на другой хост.
+- Модель Pull более проста с точки зрения мониторинга состояния живучести) Если приложение не отправляет в модели Push никаких метрик, проблему сложнее диагностировать. Это может быть проблема на уровне сети/приложения или же вовсе приложение переехало на другой хост.
 
 - Push модель накладывает доп нагрузку на хост, а в pull нагрузка вся идет восновном на серверную часть.
 
@@ -41,8 +41,40 @@ OpenSource стэк Prometheus + Grafana мне кажется способен 
 
 > 6. Какие из ниже перечисленных систем относятся к push модели, а какие к pull? А может есть гибридные?
 
-- Prometheus 
-- TICK
-- Zabbix
-- VictoriaMetrics
-- Nagios
+- Prometheus - pull..хотя вроде и push умеет
+- TICK - push 
+- Zabbix - гибрид
+- VictoriaMetrics - вроде тоже pull \ push умеет
+- Nagios - гибрид
+
+---
+
+> 7. Склонируйте себе репозиторий и запустите TICK-стэк, используя технологии docker и docker-compose.
+
+Запустил стэк как написано в readme в указанном репозиторий
+
+Скрин docker ps 
+![docker-ps](screenshot/1.png)
+
+Скрин хронографа с подключенной базой
+![chronograf](screenshot/2.png)
+
+Выводы curl команд, но некоторые ничего не отдают...Хотя как видно из скриншота выше, все контейнеры запущены)
+```shell
+fon@fons-Mac-mini sandbox % curl http://localhost:8086/ping
+fon@fons-Mac-mini sandbox % curl http://localhost:8888
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/index.c708214f.css"><meta http-equiv="Content-type" content="text/html; charset=utf-8"><title>Chronograf</title><link rel="icon shortcut" href="/favicon.70d63073.ico"></head><body> <div id="react-root" data-basepath=""></div> <script type="module" src="/index.c5ba09e6.js"></script><script src="/index.59cbcbd2.js" nomodule="" defer></script> </body></html>%
+fon@fons-Mac-mini sandbox % curl http://localhost:9092/kapacitor/v1/ping
+```
+
+---
+
+>8. Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске (disk->host->telegraf_container_id) из веб-интерфейса.
+
+![disk-usage](screenshot/3.png)
+
+---
+
+>9. Изучите список telegraf inputs. Добавьте в конфигурацию telegraf следующий плагин - docker:
+
+![docker-graph](screenshot/4.png)
