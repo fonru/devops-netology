@@ -54,10 +54,10 @@ OpenSource стэк Prometheus + Grafana мне кажется способен 
 Запустил стэк как написано в readme в указанном репозиторий
 
 Скрин docker ps 
-![docker-ps](screenshot/1.png)
+![docker-ps](screenshot/dz1/1.png)
 
 Скрин хронографа с подключенной базой
-![chronograf](screenshot/2.png)
+![chronograf](screenshot/dz1/2.png)
 
 Выводы curl команд, но некоторые ничего не отдают...Хотя как видно из скриншота выше, все контейнеры запущены)
 ```shell
@@ -71,10 +71,10 @@ fon@fons-Mac-mini sandbox % curl http://localhost:9092/kapacitor/v1/ping
 
 >8. Для выполнения задания приведите скриншот с отображением метрик утилизации места на диске (disk->host->telegraf_container_id) из веб-интерфейса.
 
-![disk-usage](screenshot/3.png)
+![disk-usage](screenshot//dz1/3.png)
 
 ---
 
 >9. Изучите список telegraf inputs. Добавьте в конфигурацию telegraf следующий плагин - docker:
 
-![docker-graph](screenshot/4.png)
+![docker-graph](screenshot/dz1/4.png)
