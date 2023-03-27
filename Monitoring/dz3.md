@@ -10,7 +10,7 @@ docker ps
 Interface
 ![kibana-UI](screenshot/dz3/2.png)
 
-# Задане 2
+# Задание 2
 
 Подключенный filebeat index
 
