@@ -18,3 +18,7 @@ Interface
 
 С fulltext search
 ![filebeat](screenshot/dz3/4.png)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1895ecd (dz4 complete)
