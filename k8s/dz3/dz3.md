@@ -49,6 +49,8 @@
 
 3. Создать и запустить Service. Убедиться, что Init запустился.
 
+[файл-manifest-nginxsvc](manifests/nginx_svc.yaml)
+
 4. Продемонстрировать состояние пода до и после запуска сервиса.
 
 ![kubectl get pods после создания сервиса](screenshoots/9.png)
