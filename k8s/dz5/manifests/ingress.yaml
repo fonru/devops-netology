@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mikfon-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: learn-netology.mikfon.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: front-backend
+            port: 
+              name: nginx
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: front-backend
+            port: 
+              name: multitool
