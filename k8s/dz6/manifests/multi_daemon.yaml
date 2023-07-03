@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: multitool-daemon
+  labels:
+    k8s-app: multitool-daemon
+spec:
+  selector:
+    matchLabels:
+      name: multitool-daemon
+  template:
+    metadata:
+      labels:
+        name: multitool-daemon
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: HTTPS_PORT
+          value: "8443"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        - containerPort: 8443
+          name: https-port
+        volumeMounts:
+        - name: varlog
+          mountPath: /logs
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log/syslog

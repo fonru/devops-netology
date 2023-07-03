@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busy-multi
+  labels:
+    app: busy-multi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busy-multi
+  template:
+    metadata:
+      labels:
+        app: busy-multi
+    spec:
+      containers:
+      - name: busybox
+        image: k8s.gcr.io/busybox
+        command: ["/bin/sh","-c"]
+        args: ["while true; do date >> /out/datetime.txt; sleep 5; done"]
+        volumeMounts:
+          - mountPath: /out
+            name: vol1
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: HTTPS_PORT
+          value: "8443"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        - containerPort: 8443
+          name: https-port
+        volumeMounts:
+          - mountPath: /in
+            name: vol1
+      volumes:
+        - name: vol1
+          hostPath:
+            path: /tmp/share
