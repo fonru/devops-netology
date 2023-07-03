@@ -10,8 +10,10 @@
 4. Продемонстрировать, что multitool может читать файл, который периодоически обновляется.
 5. Предоставить манифесты Deployment в решении, а также скриншоты или вывод команды из п. 4.
 
-файлик генерим в контейнере busybox "while true; do date >> /out/datetime.txt; sleep 5" что описано в параметрах создания deployment
-
+`
+Файлик генерим в контейнере busybox "while true; do date >> /out/datetime.txt; sleep 5" что описано в параметрах создания deployment
+`
+\
 [manifest](manifests/busy-multi.yaml)
 
 ![script-check](screenshoots/1.png)
