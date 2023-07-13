@@ -40,7 +40,7 @@
 `Service и Ingress описаны в п.2.`
 \
 `Secrete c сертами сделал командой ниже из директории с сертами`
-\
+
 ```sh
 kubectl create secret tls testsecret-tls --cert=server.crt --key=server.key
 ```
