@@ -27,9 +27,9 @@
 1. Создать Deployment приложения, состоящего из Nginx.
 2. Создать собственную веб-страницу и подключить её как ConfigMap к приложению.
    
->[manifest-ingress](manifest/ingress.yaml)
+>[manifest-ingress](manifests/ingress.yaml)
 
->[manifest-deploy](manifest/ingress.yaml)
+>[manifest-deploy](manifests/ingress.yaml)
 
 3. Выпустить самоподписной сертификат SSL. Создать Secret для использования сертификата.
    
@@ -40,11 +40,14 @@
 
 >Service и Ingress описаны в п.2
 
->Secrete c сертами сделал командой ниже
+>Secrete c сертами сделал командой ниже из директории с сертами и ключами
 
+``
+kubectl create secret tls testsecret-tls --cert=server.crt --key=server.key
+``
 >![create-secret](screenshoots/4.png)
 
->Доступ через браузер, предварительно добавил корневой серт в доверенные в keychain
+>Доступ через браузер, предварительно добавил корневой серт в доверенные в keychain + прописал hosts
 
 >![create-secret](screenshoots/3.png)
 
