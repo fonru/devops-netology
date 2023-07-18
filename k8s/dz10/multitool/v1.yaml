@@ -1,0 +1,11 @@
+replicaCount: 1
+
+NS: app1
+app_name: 'multitool-app'
+image: wbitt/network-multitool
+
+port:
+  http: 8080
+  https: 8443
+
+

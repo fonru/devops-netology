@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: "{{ .Values.app_name }}-{{ .Chart.AppVersion}}"
+  namespace: app1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+      version: "{{ .Chart.AppVersion}}"
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+        version: "{{ .Chart.AppVersion}}"
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image }}
+        env:
+        - name: HTTP_PORT
+          value: "{{ .Values.port.http}}"
+        - name: HTTPS_PORT
+          value: "{{ .Values.port.https}}"
+        ports:
+        - containerPort: {{ .Values.port.http }}
+          name: http-port
+        - containerPort: {{ .Values.port.https }}
+          name: https-port
