@@ -1,0 +1,14 @@
+kub:
+  hosts:
+    master1:
+      ansible_host: 158.160.71.216
+    master2:
+      ansible_host: 158.160.70.81 
+    master3:
+      ansible_host: 58.160.71.78
+    worker2:
+      ansible_host: 158.160.76.192
+    worker3:
+      ansible_host: 158.160.72.168
+  vars:
+    ansible_user: root
