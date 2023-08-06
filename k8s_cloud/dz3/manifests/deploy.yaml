@@ -1,0 +1,66 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: app
+  labels:
+    name: app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-multi
+  namespace: app
+  labels:
+    app: front-multi
+spec:
+  selector:
+    matchLabels:
+      app: front-multi
+  template:
+    metadata:
+      labels:
+        app: front-multi
+    spec:
+      containers:
+      - image: praqma/network-multitool
+        name: front-multi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-multi
+  namespace: app
+  labels:
+    app: back-multi
+spec:
+  selector:
+    matchLabels:
+      app: back-multi
+  template:
+    metadata:
+      labels:
+        app: back-multi
+    spec:
+      containers:
+      - image: praqma/network-multitool
+        name: back-multi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cache-multi
+  namespace: app
+  labels:
+    app: cache-multi
+spec:
+  selector:
+    matchLabels:
+      app: cache-multi
+  template:
+    metadata:
+      labels:
+        app: cache-multi
+    spec:
+      containers:
+      - image: praqma/network-multitool
+        name: cache-mult:
