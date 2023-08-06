@@ -18,10 +18,11 @@
 
 ![calico + 3 deployment multitool](screenshoots/1.png)
 
-[manifest](manifests/deploy.yaml)
+[manifest-dep](manifests/deploy.yaml)
 
 `Примененем сетевые политики согласно заданию frontend -> backend -> cache`
-[manifest](manifests/net-policy.yaml)
+
+[manifest-policy](manifests/net-policy.yaml)
 
 `Проверяем полиси c back-->front back--->cache`
 
