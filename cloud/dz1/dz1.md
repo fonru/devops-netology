@@ -32,10 +32,10 @@
 * cоздал объект маршрутизации и добавил его id в подсеть private;
 * зашел на машинку в приват сети с машины в паблик сети и проверил доступность интернета через instance nat;
 
-![list](../screenshoots/1.png)
+![list](screenshoots/1.png)
 
-![screen-web](../screenshoots/2.png)
+![screen-web](screenshoots/2.png)
 
-`из трассировки видно что траффик до 8.8.8.8 роутится через nat instance`
+`Из трассировки видно что траффик до 8.8.8.8 роутится через nat instance`
 
-![proof](../screenshoots/3.png)
+![proof](screenshoots/3.png)
