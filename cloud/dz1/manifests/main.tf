@@ -59,10 +59,6 @@ resource "yandex_compute_instance" "nat_instance" {
     nat       = true
     ip_address     = "192.168.10.254" 
 
-    # security_group_ids = [
-    #   yandex_vpc_security_group.sg-internet.id,    # Allow any outgoing traffic to Internet.
-    #   yandex_vpc_security_group.sg-nat-instance.id # Allow connections to and from the Data Proc cluster.
-    # ]
   }
 
   metadata = {
@@ -77,8 +73,8 @@ resource "yandex_compute_instance" "vm_in_pub" {
   zone        = "ru-central1-b"
 
   resources {
-    cores  = 2 # vCPU
-    memory = 4 # GB
+    cores  = 2 
+    memory = 4 
   }
 
   boot_disk {
@@ -91,10 +87,7 @@ resource "yandex_compute_instance" "vm_in_pub" {
     subnet_id = "e2le62mugtfitl235hdp"
     nat       = true
 
-    # security_group_ids = [
-    #   yandex_vpc_security_group.sg-internet.id,    # Allow any outgoing traffic to Internet.
-    #   yandex_vpc_security_group.sg-nat-instance.id # Allow connections to and from the Data Proc cluster.
-    # ]
+
   }
 
   metadata = {
@@ -110,8 +103,8 @@ resource "yandex_compute_instance" "vm_in_private" {
 
 
   resources {
-    cores  = 2 # vCPU
-    memory = 4 # GB
+    cores  = 2 
+    memory = 4 
   }
 
   boot_disk {
@@ -125,10 +118,6 @@ resource "yandex_compute_instance" "vm_in_private" {
     nat       = false
     ip_address = "192.168.20.100" 
 
-    # security_group_ids = [
-    #   yandex_vpc_security_group.sg-internet.id,    # Allow any outgoing traffic to Internet.
-    #   yandex_vpc_security_group.sg-nat-instance.id # Allow connections to and from the Data Proc cluster.
-    # ]
   }
 
   metadata = {
