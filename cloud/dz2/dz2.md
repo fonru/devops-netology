@@ -46,7 +46,7 @@
 
 `Далее сделал L7 балансировкщик с помощью следующего манифеста`
 
-[alb-manifest](manifests/lb.tf)
+[alb-manifest](manifests/alb.tf)
 
 ![ALB](screenshoots/4.png)
 
