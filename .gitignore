@@ -1,2 +1,8 @@
 .DS_Store
 .idea
+key.json
+*.hcl
+.terraform
+*.tfstate*
+*.tfstate.
+*.pub

@@ -29,13 +29,13 @@ spec:
           subset: v1
           port:
             number: 80
-        weight: 90
+        weight: 80
       - destination:
           host: myapp.default.svc.cluster.local
           subset: v2
           port:
             number: 80
-        weight: 10
+        weight: 20
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule

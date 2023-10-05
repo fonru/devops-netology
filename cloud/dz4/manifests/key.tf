@@ -4,6 +4,6 @@ resource "yandex_kms_symmetric_key" "main-key" {
   default_algorithm = "AES_256"
   rotation_period   = "8760h"
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }

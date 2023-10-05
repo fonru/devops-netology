@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"ingress.kubernetes.io/rewrite-target":"/"},"name":"ingress-nginx","namespace":"default"},"spec":{"ingressClassName":"nginx-default","rules":[{"host":"canarytest.com","http":{"paths":[{"backend":{"service":{"name":"nginx1","port":{"number":80}}},"path":"/dep","pathType":"Exact"}]}}]}}
+  creationTimestamp: "2023-08-10T15:33:53Z"
+  generation: 1
+  name: ingress-nginx
+  namespace: default
+  resourceVersion: "44793"
+  uid: 26b60b83-c216-4117-b022-bf47a7dd9732
+spec:
+  ingressClassName: nginx-default
+  rules:
+  - host: canarytest.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: nginx1
+            port:
+              number: 80
+        path: /dep
+        pathType: Exact
+status:
+  loadBalancer: {}
