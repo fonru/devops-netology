@@ -1,0 +1,24 @@
+- name: Install HA_proxy
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: apt-get update && apt-get upgrade
+    ansible.builtin.apt:
+      update_cache: yes
+      upgrade: yes
+  
+  - name: Install HA_proxy package
+    ansible.builtin.apt:
+      pkg:
+      - haproxy
+
+  - name: Copy HA_proxy config
+    ansible.builtin.template:
+      src: ./templates/ha_proxy.conf.j2
+      dest: /etc/haproxy/haproxy.cfg
+  
+  - name: Restart HA_proxy
+    ansible.builtin.systemd:
+      name: haproxy
+      state: restarted

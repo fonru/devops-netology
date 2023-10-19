@@ -1,0 +1,4 @@
+all:
+  hosts:
+    ext_lb:
+      ansible_host: 158.160.126.151
