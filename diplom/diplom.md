@@ -6,11 +6,13 @@
 * [ТF - инфраструктура сети](./IaaC/network.tf)
 * [ТF - VM под k8s](./IaaC/k8s_inst.tf)
 * [ТF - VM под external ha-proxy](./IaaC/ext_lb.tf)
+* [TF - Container registry](./IaaC/registry.tf)
 * [ТF - локали используемые в описании инфраструктуры](./IaaC/local.tf)
-* [Ansible - hosts kubespray](./ansible/kubespray/inventory/diplom_cluster/hosts.yaml)
+* [Ansible - hosts kubespray](./ansible/kubespray_cfg/diplom_cluster/hosts.yaml)
 * [Ansible - main playbook установка ha-proxy](./ansible/ext_lb_haproxy/main.yml)
 * [Ansible - hosts ha-proxy](./ansible/ext_lb_haproxy/hosts.yml)
 * [Ansible - ha-proxy.cfg](./ansible/ext_lb_haproxy/templates/ha_proxy.conf.j2)
+* [APP - DOCKERFILE](https://github.com/fonru/devops-diplom/blob/main/dockerfile)
   
 ## Этапы выполнения
 
@@ -36,7 +38,7 @@
 *Созданные VMки под кластер + 1 VM под внешний балансер для доступа к k8s API*
 ![Созданные VMки](screenshoots/5.png)
 
-Далее с помощью kuberspray поднял кластер предварительно сгенерив ansible-host [файл](./ansible/kubespray/inventory/diplom_cluster/hosts.yaml). Внешние ip адреса могут отличаться на скриншотах, так как машины переодически выключал для экономия баланса.
+Далее с помощью kuberspray поднял кластер предварительно сгенерив ansible-host [файл](./ansible/kubespray_cfg/diplom_cluster/hosts.yaml). Внешние ip адреса могут отличаться на скриншотах, так как машины переодически выключал для экономия баланса.
 
 ![Результат выполнения kubespray playbook](screenshoots/6.png)
 
@@ -67,3 +69,22 @@ kubeadm init phase upload-config kubeadm --config kubeadm.yaml
 По итогу после выгрузки kubeconfig и переноса его на локальную машину проверяем доступность кластера k8s.
 
 ![kubectl get nodes](screenshoots/7.png)
+
+### 3. Создание тестового приложения
+
+В качестве приложения я решил использовать обычный nginx с доп страницей. 
+
+[DOCKERFILE](https://github.com/fonru/devops-diplom/blob/main/dockerfile)
+
+Также добавил в Terraform создание container registry для образов
+
+[TF - Container registry](./IaaC/registry.tf)
+
+После чего push образ в container registry.
+
+*Push образа с локальной машины*
+![docker push](screenshoots/8.png)
+\
+\
+*Container registry*
+![docker push](screenshoots/9.png)

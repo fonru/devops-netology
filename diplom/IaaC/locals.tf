@@ -47,4 +47,9 @@ locals {
   ext_lb_zone = "ru-central1-a"
   ext_lb_disk = 8
   ext_lb_image = "fd8ebb4u1u8mc6fheog1"
+
+  #### Registry ####
+  registry_name = "diplom-registry"
+  registry_push_ip = [ "95.24.104.223/32"]
+  registry_pull_ip = [ "95.24.104.223/32"]
 }
