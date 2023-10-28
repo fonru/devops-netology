@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [""]
+  script:
+    # - env
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$DOCKERHUB_USERNAME\",\"password\":\"$DOCKERHUB_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/dockerfile"
+      --destination "$DEST:${CI_COMMIT_TAG}"
+  only:
+    - tags
+
+deploy:
+  stage: deploy
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  script:
+    - echo ${CI_COMMIT_TAG}
+    # - kubectl config get-contexts
+    - kubectl config use-context diplom/diplom-app:diplomk8s
+    - kubectl set image deployment/my-app-deployment myapp=fonru/diplom:${CI_COMMIT_TAG}
+  only:
+    - tags
+

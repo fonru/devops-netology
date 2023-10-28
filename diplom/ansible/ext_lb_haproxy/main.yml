@@ -3,15 +3,15 @@
   become: yes
 
   tasks:
-  - name: apt-get update && apt-get upgrade
-    ansible.builtin.apt:
-      update_cache: yes
-      upgrade: yes
+  # - name: apt-get update && apt-get upgrade
+  #   ansible.builtin.apt:
+  #     update_cache: yes
+  #     upgrade: yes
   
-  - name: Install HA_proxy package
-    ansible.builtin.apt:
-      pkg:
-      - haproxy
+  # - name: Install HA_proxy package
+  #   ansible.builtin.apt:
+  #     pkg:
+  #     - haproxy
 
   - name: Copy HA_proxy config
     ansible.builtin.template:

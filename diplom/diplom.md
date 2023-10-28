@@ -1,19 +1,25 @@
 # Дипломная работа
 
 ## Ссылки
-
+* [GITLAB - Terraform](https://mfonarev.gitlab.yandexcloud.net/diplom/terraform-diplom)
+* [GITLAB - MyAPP](https://mfonarev.gitlab.yandexcloud.net/diplom/diplom-app)
 * [TF - основной конфиг](./IaaC/main.tf)
 * [ТF - инфраструктура сети](./IaaC/network.tf)
-* [ТF - VM под k8s](./IaaC/k8s_inst.tf)
+* [ТF - VM под k8s+infra](./IaaC/k8s_inst.tf)
 * [ТF - VM под external ha-proxy](./IaaC/ext_lb.tf)
-* [TF - Container registry](./IaaC/registry.tf)
 * [ТF - локали используемые в описании инфраструктуры](./IaaC/local.tf)
+* [TF - секреты для docker](k8s/secret_registry.yaml)
 * [Ansible - hosts kubespray](./ansible/kubespray_cfg/diplom_cluster/hosts.yaml)
 * [Ansible - main playbook установка ha-proxy](./ansible/ext_lb_haproxy/main.yml)
 * [Ansible - hosts ha-proxy](./ansible/ext_lb_haproxy/hosts.yml)
 * [Ansible - ha-proxy.cfg](./ansible/ext_lb_haproxy/templates/ha_proxy.conf.j2)
+* [Ansible - install docker](./ansible/install_docker/install.yaml)
 * [APP - DOCKERFILE](https://github.com/fonru/devops-diplom/blob/main/dockerfile)
-  
+* [k8s - ingress - grafana](k8s/ingress_grafana.yaml)
+* [k8s - helm runner](./gitlab_conf/runner.conf)
+* [k8s - service_acc - runner](./gitlab_conf/k8s_conf.yaml)
+* [k8s - my app](k8s/my_app.yaml)
+
 ## Этапы выполнения
 
 ### 1. Создание облачной инфраструктуры
@@ -76,15 +82,70 @@ kubeadm init phase upload-config kubeadm --config kubeadm.yaml
 
 [DOCKERFILE](https://github.com/fonru/devops-diplom/blob/main/dockerfile)
 
-Также добавил в Terraform создание container registry для образов
+Для registry использовал [dockerhub](https://hub.docker.com/repository/docker/fonru/diplom/general)
 
-[TF - Container registry](./IaaC/registry.tf)
+*DockerHub regisry*
+![Container-Registry](screenshoots/18.png)
 
-После чего push образ в container registry.
+### 4. Подготовка cистемы мониторинга и деплой приложения
 
-*Push образа с локальной машины*
-![docker push](screenshoots/8.png)
-\
-\
-*Container registry*
-![docker push](screenshoots/9.png)
+Использовав [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) задеплоили стэк для мониторинга (достаточно просто запустить манифест install)
+
+Также дополнительно поставил ingress_haproxy на кластер через helm и создал [ingress](k8s/ingress_grafana.yaml) для grafana. 
+
+
+Для того чтобы работали health check ingress подредактиварол разрешив доступ до графаны из других ns [network policy](diplom/k8s/grafana-networkPolicy.yaml)
+
+Также добавил на внешний ha-proxy, использующийся для доступа к кластеру k8s, еще один backend для доступа в графану [ha-proxy.cfg](./ansible/ext_lb_haproxy/templates/ha_proxy.conf.j2)
+
+*Состояние подов стэка мониторинга*
+![monitoring-ns](screenshoots/10.png)
+
+*Состояние подов haproxy ingress котролеров*
+![ingress-controler](screenshoots/11.png)
+
+*Для доступа к графане необходимо создать запись выделенную ниже в hosts*
+![hosts](screenshoots/12.png)
+
+*Дашборд кластера графана*
+![grafana](screenshoots/13.png)
+
+Для организации CI/CD я использовал GitLab SaaS от YC. Выходило дешевле чем не прерываемая VM.
+Git-Lab runner-ы я развернул в том же кластере k8s через helm [helm-cfg](./gitlab_conf/runner.conf) в отдельном namespace gitlab-runner.
+
+Под runner создал отдельный [service account](./gitlab_conf/k8s_conf.yaml)
+
+*GitLab-Runner*
+![runner](screenshoots/16.png)
+
+Далее в GitLab создал [новый репозиторий](https://mfonarev.gitlab.yandexcloud.net/diplom/terraform-diplom) под Terraform,
+куда перенес все манифесты + создал [CI\CD](./ci/.gitlab-ci.yml).
+
+Далее проверил CI\CD добавив новую сетку в терраформ манифест.
+
+*Тест CI\CD Terraform*
+![grafana](screenshoots/15.png)
+
+Далее через манифест добавил [секреты для docker](k8s/secret_registry.yaml)
+
+И раскатываем приложение через [манифест](k8s/my_app.yaml)
+
+*Раскатанная версия приложения*
+![myapp](screenshoots/17.png)
+
+
+### 5 Установка и настройка CI/CD для приложения
+
+[Репозиторий с приложением](https://mfonarev.gitlab.yandexcloud.net/diplom/diplom-app)
+
+Настроил kubernetes agent и подключил его к своему кластеру k8s
+![agent-k8s](screenshoots/19.png)
+
+Далее через создал [ci/cd](./ci/.gitlab-ci_myapp.yml) для сборки и деплоя моего приложения, выполняющийся при пуше нового тега для коммита.
+
+*Выполненный pipline сборки и деплоя на коммит с тегом 55.55.55*
+![CICD](screenshoots/21.png)
+
+*Обновленное приложение до версии 55.55.55*
+![CICD](screenshoots/22.png)
+

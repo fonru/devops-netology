@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  namespace: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: fonru/diplom:1.0.1
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: docker-registry-cred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+  namespace: myapp
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app
+  namespace: myapp
+spec:
+  ingressClassName: haproxy
+  rules:
+  - host: "mfonarev.com"
+    http:
+      paths:
+      - path: /diplom.html
+        pathType: Prefix
+        backend:
+          service:
+            name: my-app-service
+            port:
+              number: 8080
+

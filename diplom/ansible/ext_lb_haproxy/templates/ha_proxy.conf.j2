@@ -34,6 +34,22 @@ backend kube-apiserver
     server kube-apiserver-master-b k8s-master-b.ru-central1.internal:6443 check
     server kube-apiserver-master-c k8s-master-c.ru-central1.internal:6443 check
 
+frontend ingress-front
+bind *:80
+mode tcp
+option tcplog
+default_backend kube-ingress-http
+
+
+backend kube-ingress-http
+    mode tcp
+    option tcplog
+    option tcp-check
+    balance roundrobin
+    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
+    server kube-worker-a k8s-worker-a.ru-central1.internal:32538 check
+    server kube-worker-b k8s-worker-b.ru-central1.internal:32538 check
+
 listen stats 
     bind :9000                          
     mode http

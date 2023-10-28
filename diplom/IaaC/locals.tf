@@ -12,7 +12,6 @@ locals {
   master_image = "fd8ebb4u1u8mc6fheog1"
   master_ram = 4
   master_cpu = 2
-  master_disk_size = 21474836480
   master_A_zone = "ru-central1-a"
   master_B_zone = "ru-central1-b"
   master_C_zone = "ru-central1-b"
@@ -24,23 +23,18 @@ locals {
   worker_image = "fd8ebb4u1u8mc6fheog1"
   worker_ram = 4
   worker_cpu = 2
-  worker_disk_size = 21474836480
   worker_A_zone = "ru-central1-a"
   worker_B_zone = "ru-central1-b"
   worker_A_name = "k8s-worker-a"
   worker_B_name = "k8s-worker-b"
 
   #### Disk ####
-  master_A_disk_name = "disk-master-a"
   master_A_disk_size = 40
-  master_B_disk_name = "disk-master-b"
   master_B_disk_size = 40
-  master_C_disk_name = "disk-master-c"
   master_C_disk_size = 40
-  worker_A_disk_name = "disk-worker-a"
   worker_A_disk_size = 40
-  worker_B_disk_name = "disk-worker-b"
   worker_B_disk_size = 40
+  gitlab_disk_size = 15
 
   #### External LB ####
   ext_lb_name = "ext-haproxy"
@@ -52,4 +46,12 @@ locals {
   registry_name = "diplom-registry"
   registry_push_ip = [ "95.24.104.223/32"]
   registry_pull_ip = [ "95.24.104.223/32"]
+
+  #### K8S nodes Masters
+  gitlab_image = "fd8ebb4u1u8mc6fheog1"
+  gitlab_ram = 4
+  gitlab_cpu = 4
+  # gitlab_disk_size = 40
+  gitlab_zone = "ru-central1-a"
+  gitlab_name = "gitlab-diplom"
 }

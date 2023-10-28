@@ -1,0 +1,53 @@
+image: hashicorp/terraform:light
+
+stages:
+  - validate
+  - plan
+  - apply
+
+variables:
+  YC_TOKEN: $YC_TOKEN
+  ACCESS_KEY: $ACCESS_KEY
+  SECRET_KEY: $SECRET_KEY
+
+before_script:
+  - | 
+    cat <<EOF >> ~/.terraformrc
+    provider_installation {
+      network_mirror {
+        url = "https://terraform-mirror.yandexcloud.net/"
+        include = ["registry.terraform.io/*/*"]
+      }
+      direct {
+        exclude = ["registry.terraform.io/*/*"]
+      }
+    }
+    EOF
+  - terraform init
+  - terraform state pull
+
+cache:
+  key: terraform
+  paths:
+    - .terraform
+      
+terraform_validate:
+  stage: validate
+  script:
+    - terraform validate
+  except:
+    refs:
+      - master
+
+terraform_plan:
+  stage: plan
+  script:
+    - terraform plan -out="planfile"
+  artifacts:
+    paths:
+      - planfile
+
+terraform_apply:
+  stage: apply
+  script:
+    - terraform apply -auto-approve "planfile"
